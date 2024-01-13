@@ -29,6 +29,11 @@
             <router-link class="px-2 text-white" :to="{ name: 'about' }">About</router-link>
           </li>
         </ul>
+        <ul class="ml-auto">
+          <li>
+            <a class="px-2 text-white" @click.prevent="changeLocale">{{ currentLocale }}</a>
+          </li>
+        </ul>
       </div>
     </nav>
   </header>
@@ -43,7 +48,10 @@ export default {
   name: "AppHeader",
   computed: {
     ...mapStores(useModalStore),
-    ...mapStores(useUserStore)
+    ...mapStores(useUserStore),
+    currentLocale() {
+      return this.$i18n.locale === "fa" ? "Persian" : "English";
+    }
   },
   data() {
     return {
@@ -61,6 +69,9 @@ export default {
       if (this.$routes.meta.requiresAuth) {
         this.$route.push({ name: "home" });
       }
+    },
+    changeLocale() {
+      this.$i18n.locale = this.$i18n.locale === "fa" ? "en" : "fa";
     }
   }
 };
