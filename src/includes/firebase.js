@@ -8,13 +8,17 @@ const firebaseConfig = {
   authDomain: "",
   projectId: "",
   storageBucket: "",
-  appId: ""
+  appId: "",
 };
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
+
+db.enablePersistence().catch((error) => {
+  console.log(`Firebase Persistence error ${error.code}`);
+});
 
 const usersCollection = db.collection("users");
 const songsCollection = db.collection("songs");
